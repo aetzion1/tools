@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adam's Tools</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+      min-height: 100vh;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    h1 { margin-bottom: 30px; font-size: 2.5rem; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; font-size: 1.3rem; }
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 400;
+    }
+    a:hover { text-decoration: underline; }
+    .desc {
+      font-weight: 300;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <h1>Adam's Tools</h1>
+  <ul>
+    <li><a href="wheel-picker.html">🎡 Wheel Picker</a> <span class="desc">— Randomly select from a list using a spinning wheel</span></li>
+  </ul>
+  <script>
+    const colors = [
+      'rgb(244, 103, 199)',
+      'rgb(190, 82, 255)',
+      'rgb(139, 119, 255)',
+      'rgb(0, 170, 194)',
+      'rgb(154, 162, 0)',
+      'rgb(248, 121, 23)',
+      'rgb(240, 177, 3)',
+      'rgb(204, 61, 51)',
+      'rgb(41, 152, 80)',
+      'rgb(0, 100, 230)',
+      'rgb(236, 67, 67)',
+      'rgb(207, 111, 182)'
+    ];
+    document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
+  </script>
+</body>
+</html>
