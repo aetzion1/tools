@@ -1,0 +1,1 @@
+Randomly select from a list of options using an interactive spinning wheel. Add items by typing names into the input field, then click "Spin!" to let the wheel choose a winner with a satisfying animation. Your items are automatically saved to local storage, so they persist between browser sessions.

@@ -37,7 +37,7 @@ All tools in this repository must follow these constraints:
 
 - **HTML file**: `{tool-name}.html` (e.g., `query-string-stripper.html`)
 - **Docs file**: `{tool-name}.docs.md` (e.g., `query-string-stripper.docs.md`)
-- **Docs format**: Brief description + auto-generated commit comment
+- **Docs format**: Brief description + auto-generated commit comment (see python script)
 
 ### Example docs.md:
 
@@ -53,7 +53,32 @@ sessions. Features a canvas-based wheel with smooth rotation animation.
 
 ## 3. Common Patterns
 
-TBD
+### Data Persistence
+
+**From wheel-picker.html:**
+
+```javascript
+const STORAGE_KEY = "wheelPickerItems";
+
+function saveItems(items) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+function loadItems() {
+  const data = localStorage.getItem(STORAGE_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+// Load on page load
+let items = loadItems();
+
+// Save after every change
+function addItem(text) {
+  items.push({ text, color: generateColor() });
+  saveItems(items);
+  render();
+}
+```
 
 ---
 
