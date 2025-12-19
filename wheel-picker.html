@@ -158,6 +158,13 @@
       .delete-btn:hover {
         color: #ff6b6b;
       }
+
+      .hint {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: -10px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -167,9 +174,10 @@
 
     <main>
       <div class="input-row">
-        <input type="text" id="itemInput" placeholder="Enter a name..." />
+        <input type="text" id="itemInput" placeholder="Enter names (comma-separated)..." />
         <button id="addBtn">Add</button>
       </div>
+      <p class="hint">Tip: Add multiple items at once by separating them with commas</p>
 
       <div class="wheel-container">
         <div class="pointer"></div>
@@ -293,11 +301,19 @@
         spinBtn.disabled = items.length === 0 || isSpinning;
       }
 
-      // Add item
+      // Add item(s) - supports comma-separated values
       function addItem() {
-        const value = itemInput.value.trim();
-        if (!value) return;
-        items.push(value);
+        const input = itemInput.value;
+        if (!input.trim()) return;
+        
+        const newItems = input
+          .split(',')
+          .map(item => item.trim())
+          .filter(item => item.length > 0);
+        
+        if (newItems.length === 0) return;
+        
+        items.push(...newItems);
         saveItems();
         drawWheel();
         renderList();
