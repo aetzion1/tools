@@ -167,29 +167,6 @@
         margin-top: -10px;
         text-align: center;
       }
-
-      .winner-banner {
-        margin-top: 15px;
-        padding: 12px 24px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        transform: translateY(20px);
-        opacity: 0;
-        transition: transform 0.4s ease, opacity 0.4s ease;
-      }
-
-      .winner-banner.show {
-        transform: translateY(0);
-        opacity: 1;
-      }
-
-      .winner-banner.hidden {
-        display: none;
-      }
     </style>
   </head>
   <body>
@@ -208,7 +185,6 @@
         <div class="pointer"></div>
         <canvas id="wheel" width="400" height="400"></canvas>
         <button id="spinBtn" disabled>Spin!</button>
-        <div id="winnerBanner" class="winner-banner hidden"></div>
       </div>
 
       <section class="items-section">
@@ -246,7 +222,6 @@
       const addBtn = document.getElementById("addBtn");
       const spinBtn = document.getElementById("spinBtn");
       const itemsList = document.getElementById("itemsList");
-      const winnerBanner = document.getElementById("winnerBanner");
 
       let items = [];
       let currentRotation = 0;
@@ -257,32 +232,6 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
       const loadItems = () =>
         JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-
-      // Get winner based on current rotation
-      function getWinner() {
-        if (items.length === 0) return null;
-        const sliceAngle = 360 / items.length;
-        // Normalize rotation to 0-360
-        const normalizedRotation = ((currentRotation % 360) + 360) % 360;
-        // The pointer is at top; calculate which slice is there
-        const winningIndex = (Math.floor((360 - normalizedRotation) / sliceAngle) + items.length - 6) % items.length;
-        return items[winningIndex];
-      }
-
-      // Show winner banner
-      function showWinner(winner) {
-        winnerBanner.textContent = `🎉 Winner: ${winner}!`;
-        winnerBanner.classList.remove("hidden");
-        // Trigger reflow for animation
-        winnerBanner.offsetHeight;
-        winnerBanner.classList.add("show");
-        
-        // Hide after 5 seconds
-        setTimeout(() => {
-          winnerBanner.classList.remove("show");
-          setTimeout(() => winnerBanner.classList.add("hidden"), 400);
-        }, 5000);
-      }
 
       // Draw wheel
       function drawWheel() {
@@ -406,8 +355,6 @@
       canvas.addEventListener("transitionend", () => {
         isSpinning = false;
         updateSpinBtn();
-        const winner = getWinner();
-        if (winner) showWinner(winner);
       });
 
       // Event listeners
